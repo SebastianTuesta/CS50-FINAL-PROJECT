@@ -1,0 +1,132 @@
+body {
+  width: 100%;
+  height: 100%;
+  background: #456;
+  text-align: center;
+}
+
+.search {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+.search-header,
+.search p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.search-triangle {
+  width: 0;
+  margin-right: auto;
+  margin-left: auto;
+  border: 12px solid transparent;
+  border-bottom-color: #28d;
+}
+
+.search-header {
+  background: #28d;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.search-container {
+  text-align: center;
+  background: #ebebeb;
+  padding: 12px;
+}
+
+
+.search p {
+  padding: 12px;
+}
+
+.search input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.search input[name="analize"],
+.search input[name="length"] {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+/* Text fields' focus effect */
+.search input[name="analize"]:focus,
+.search input[name="length"]:focus {
+  border-color: #888;
+}
+
+.search button#buttonSearch {
+  padding: 2.5%;
+  display: inline-block;
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search button#buttonSearch:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+.search button#buttonSearch:focus {
+  border-color: #05a;
+}
+
+.warming{
+  padding: 5%;
+  font-weight: bold;
+  color: red;
+}
+
+a.return{
+    text-decoration: none;
+    display: inline-block;;
+    width: 115px;
+    height: 25px;
+    background: #4E9CAF;
+    padding: 1%;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+a.return:hover{
+  background: #4D5CAD;
+}
+
+svg{
+  background-color: white;
+  top:20;
+  bottom:150;left:100;
+  right:20;
+  border:2px solid #000;
+}
+
+
+.node {
+  
+}
+
+.link { 
+  stroke: #999;
+  stroke-opacity: .6;
+  stroke-width: 1px;
+}

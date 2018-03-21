@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>webpage graph</title>
+  <link rel="stylesheet" href="static/style.css">  
+</head>
+
+<body>
+	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  
+  	<svg width="1325" height="1325"></svg>
+  
+  	<a href="/" class="return">SEARCH AGAIN</a>
+
+  
+
+  	<script src='http://d3js.org/d3-selection-multi.v1.js'></script>
+
+	<script type="text/javascript">
+		
+		/*
+		CONVERT "DATA" VARIABLE TO A JSON VARIABLE
+		 */	
+		var graph = {{data | tojson  | safe}};
+		
+
+		var svg = d3.select("svg");
+		var colors = d3.scaleOrdinal(d3.schemeCategory10),
+		    width = +svg.attr("width"),
+		    height = +svg.attr("height");
+
+
+
+		svg
+		  .append('marker')
+		  .attrs({
+		    'id':'arrowhead',
+		    'viewBox': '-0 -5 10 10',
+		    'refX': 18,
+		    'refY': 0,
+		    'orient': 'auto',
+		    'markerWidth': 21,
+		    'markerHeight': 13,
+		    'xoverflow':'visible'
+		  })
+		  .append('svg:path')
+		  .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+		  .attr('fill', '#999');
+
+		var zoom = d3.zoom()
+		    .scaleExtent([1, 8])
+		    .on("zoom", zoomed);
+
+		function zoomed() {
+		  g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+		  g.attr("transform", d3.event.transform);
+		}
+
+		svg
+		  .call(zoom);
+
+		var g = svg.append("g");
+
+		var simulation = d3.forceSimulation()
+		  .force("link", (
+		    d3.forceLink()
+		      .id(d => d.id)
+		      .distance(500)
+		      .strength(1.5)
+		  ))
+		  .force("charge", d3.forceManyBody())
+		  .force("center", d3.forceCenter(width / 2, height / 2));
+
+		update(graph.links, graph.nodes);
+
+		// ---
+		function update(links, nodes) {
+		  link = g.selectAll(".link")
+		    .data(links)
+		    .enter()
+		    .append("line")
+		    .attr("class", "link")
+		    .attr('marker-end','url(#arrowhead)')
+		  
+		  node = g.selectAll(".node")
+		    .data(nodes)
+		    .enter()
+		    .append("g")
+		    .attr("class", "node")
+		    .call(
+		      d3.drag()
+		      .on("start", dragstarted)
+		      .on("drag", dragged)
+		    );
+		  
+		  node.append("circle")
+		    .attr("r", 10)
+		    .style("fill", function(d,i){return colors(i);});
+		    
+		  node.append("title")
+		    .text((d) => d.id);
+
+		  node.append("text")
+		    .attr("dy", 5)
+		    .attr("dx", 10)
+		    .text((d) => d.name);
+
+		  simulation
+		    .nodes(nodes)
+		    .on("tick", ticked);
+
+		  simulation.force("link")
+		    .links(links);
+		}
+
+		function ticked() {
+		  link
+		    .attr("x1", (d) => d.source.x)
+		    .attr("y1", (d) => d.source.y)
+		    .attr("x2", (d) => d.target.x)
+		    .attr("y2", (d) => d.target.y);
+
+		  node
+		    .attr("transform", (d) => "translate(" + d.x + ", " + d.y + ")");
+		}
+
+		function dragstarted(d) {
+		  
+		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+		  d.fx = d.x;
+		  d.fy = d.y;
+		 
+		}
+
+		function dragged(d) {
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>PAGE'S LINKS DIRECTED GRAPH</title>
+
+    
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="static/style.css">
+
+  
+</head>
+
+<body>
+  <div class="search">
+    <div class="search-triangle"></div>
+    
+    <h2 class="search-header">CREATE GRAPH</h2>
+    
+    <form class="search-container" action="{{ url_for('index')}}" method="post">
+      {% if warming %} 
+        <div class="warming">
+          URL NOT VALID <i class="fa fa-exclamation-triangle fa-1.5x"></i>
+        </div>
+      {% endif%}
+
+      <p><input type="url" placeholder="URL" id="analize" name="analize" required></i></p>
+      <p><input type="number" name="length" placeholder="NODES" i="length" min="50" required></p>
+      <p><button id="buttonSearch">Search Links <i class="fa fa-search"></i></button></p>
+    </form>
+  </div>
+</body>
+
+</html>
